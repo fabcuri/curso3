@@ -108,27 +108,21 @@ public class CursoController {
 	@RequestMapping(value = ENDPOINT, method = RequestMethod.GET)
 	@ApiOperation("Serviço para consulta de Curso")
 	@CrossOrigin
-	public ResponseEntity<List<CursoGetResponse>> get() throws IOException {
+	public ResponseEntity<List<Curso>> get() throws IOException {
 
-		List<CursoGetResponse> response = new ArrayList<CursoGetResponse>();
-		for (Curso curso : cursoRepository.findAll()) {
-			CursoGetResponse item = new CursoGetResponse();
-			item.setIdCurso(curso.getIdCurso());
-			item.setDescricao(curso.getDescricao());
-			item.setDataInicio(curso.getDataInicio());
-			item.setDataTermino(curso.getDataTermino());
+		List<Curso> cursos = cursoRepository.findAll();
 
-			response.add(item);
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(response);
+		return ResponseEntity.ok(cursos);
+		
 	}
 
-	@RequestMapping(value = ENDPOINT + "/{idCurso}", method = RequestMethod.GET)
-	@ApiOperation("Serviço para consulta de curso")
+	@RequestMapping(value = ENDPOINT + "/{idCategoria}", method = RequestMethod.GET)
+	@ApiOperation("Serviço para consulta de curso pela categoria")
 	@CrossOrigin
-	public ResponseEntity<Curso> getById(@PathVariable("idCurso") Integer idCurso) {
-		Optional<Curso> curso = cursoRepository.findById(idCurso);
+	public ResponseEntity<List<Curso>> getById(@PathVariable("idCategoria") Integer idCategoria) {
+		
+		List<Curso> curso = cursoRepository.findByIdCategoria(idCategoria);
 
-		return ResponseEntity.ok(curso.get());
+		return ResponseEntity.ok(curso);
 	}
 }
