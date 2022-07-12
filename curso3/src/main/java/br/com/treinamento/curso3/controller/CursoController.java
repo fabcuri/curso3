@@ -48,9 +48,6 @@ public class CursoController {
 		try {
 			
 			Curso curso = new Curso();
-			if (curso.getDataInicio().isAfter(curso.getDataTermino())) {
-				throw new RuntimeException("Data Invalida");
-			}else {
 			curso.setDescricao(request.getDescricao());
 			curso.setDataInicio(request.getDataInicio());
 			curso.setDataTermino(request.getDataTermino());
@@ -58,7 +55,7 @@ public class CursoController {
 
 			return ResponseEntity.status(HttpStatus.OK).body("Curso cadastrado com sucesso.");
 
-		}} catch (Exception e) {
+		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro:" + e.getMessage());
 		}
 	}

@@ -45,7 +45,11 @@ public class CursoService {
 			throw new RuntimeException("Data invalida");
 		}
 	}
+	private void cursoJaExistente(Curso curso) {
 	
+		}
 	}
+	
+	
 
 
