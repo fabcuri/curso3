@@ -1,6 +1,7 @@
 package br.com.treinamento.curso3.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.treinamento.curso3.entities.Categoria;
 import br.com.treinamento.curso3.entities.Curso;
 import br.com.treinamento.curso3.entities.Log;
 import br.com.treinamento.curso3.repository.ICursoRepository;
@@ -42,17 +44,21 @@ public class CursoController {
 	@CrossOrigin
 	public ResponseEntity<String> post(@RequestBody CursoPostRequest request) throws IOException {
 		Log.escreverLog1();
+		
 		try {
+			
 			Curso curso = new Curso();
+			if (curso.getDataInicio().isAfter(curso.getDataTermino())) {
+				throw new RuntimeException("Data Invalida");
+			}else {
 			curso.setDescricao(request.getDescricao());
 			curso.setDataInicio(request.getDataInicio());
 			curso.setDataTermino(request.getDataTermino());
-
 			cursoRepository.save(curso);
 
 			return ResponseEntity.status(HttpStatus.OK).body("Curso cadastrado com sucesso.");
 
-		} catch (Exception e) {
+		}} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro:" + e.getMessage());
 		}
 	}

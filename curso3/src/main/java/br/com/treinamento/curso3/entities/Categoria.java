@@ -19,7 +19,7 @@ public class Categoria {
 	@Column(name = "idcategoria")
 	private Integer idCategoria;
 
-	@Column(name = "tipo", length = 50, nullable = false)
+	@Column(name = "tipo", length = 50)
 	private String tipo;
 
 	public Categoria() {
