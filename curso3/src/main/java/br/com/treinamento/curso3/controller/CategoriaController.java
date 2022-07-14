@@ -30,6 +30,7 @@ import io.swagger.annotations.ApiOperation;
 
 @Controller
 @RestController
+@RequestMapping(value="api/categorias")
 @Transactional
 public class CategoriaController {
 	@Autowired
@@ -37,9 +38,9 @@ public class CategoriaController {
 	@Autowired
 	private ICursoRepository cursoRepository;
 	// metodo para
-	private static final String ENDPOINT = "api/categorias";
 
-	@RequestMapping(value = ENDPOINT, method = RequestMethod.POST)
+
+	@RequestMapping( method = RequestMethod.POST)
 	@ApiOperation("Serviço para cadastro de Categorias")
 	@CrossOrigin
 	public ResponseEntity<String> post(@RequestBody CategoriaPostRequest request) {
@@ -56,7 +57,7 @@ public class CategoriaController {
 		}
 	}
 
-	@RequestMapping(value = ENDPOINT, method = RequestMethod.PUT)
+	@RequestMapping( method = RequestMethod.PUT)
 	@ApiOperation("Serviço para edição de Categorias")
 	@CrossOrigin
 	public ResponseEntity<String> put(@RequestBody CategoriaPutRequest request) {
@@ -79,7 +80,7 @@ public class CategoriaController {
 		}
 	}
 
-	@RequestMapping(value = ENDPOINT + "/{idCategoria}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{idCategoria}", method = RequestMethod.DELETE)
 	@ApiOperation("Serviço para exclusão de categoria")
 	@CrossOrigin
 	public ResponseEntity<String> delete(@PathVariable("idCategoria") Integer idCategoria) {
@@ -100,7 +101,7 @@ public class CategoriaController {
 
 	}
 
-	@RequestMapping(value = ENDPOINT, method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	@ApiOperation("Serviço para consulta de Categoria")
 	@CrossOrigin
 	public ResponseEntity<List<CategoriaGetResponse>> get() {
@@ -115,7 +116,7 @@ public class CategoriaController {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
-	@RequestMapping(value = ENDPOINT + "/{idCategoria}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{idCategoria}", method = RequestMethod.GET)
 	@ApiOperation("Serviço para consulta de categoria")
 	@CrossOrigin
 	public ResponseEntity<CursoCategoriaGetResponse> getById(@PathVariable("idCategoria") Integer idCategoria) {
@@ -125,7 +126,6 @@ public class CategoriaController {
 		} else {
 			CursoCategoriaGetResponse response = new CursoCategoriaGetResponse();
 			Categoria categoria = item.get();
-			response.setTipo(categoria.getTipo());
 			List<Curso> cursos = categoriaRepository.findByIdCategoria(categoria.getIdCategoria());
 			for (Curso curso : cursos) {
 				response.getDescricaoCursos().add(curso.getDescricao());

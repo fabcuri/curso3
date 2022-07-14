@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CursoCategoriaGetResponse {
-	private String tipo;
+
 	private List<String> descricaoCursos = new ArrayList();
 	private List<LocalDate> dataInicio = new ArrayList();
 	private List<LocalDate> dataTermino = new ArrayList();
@@ -18,19 +18,12 @@ public class CursoCategoriaGetResponse {
 	public CursoCategoriaGetResponse(String tipo, List<String> descricaoCursos, List<LocalDate> dataInicio,
 			List<LocalDate> dataTermino) {
 		super();
-		this.tipo = tipo;
+		
 		this.descricaoCursos = descricaoCursos;
 		this.dataInicio = dataInicio;
 		this.dataTermino = dataTermino;
 	}
 
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
 
 	public List<String> getDescricaoCursos() {
 		return descricaoCursos;
