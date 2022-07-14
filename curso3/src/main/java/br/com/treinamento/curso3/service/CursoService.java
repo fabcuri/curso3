@@ -25,13 +25,15 @@ public class CursoService {
 		cursoRepository.save(curso);
 	}
 	@Transactional
-	public void excluir(Curso curso) {
+	public void deletar(Curso curso) {
 		validaDataExclusao(curso);
-		cursoRepository.save(curso);
+		cursoRepository.delete(curso);
 	}
 
 	private void validaDataExclusao(Curso curso) {
-		// TODO Auto-generated method stub
+		if(LocalDate.now().isAfter(curso.getDataTermino())) {
+			throw new RuntimeException("Curso Encerrado, não é possivel a exclusão");	
+		}
 		
 	}
 	private void validaData(Curso curso) {
@@ -39,6 +41,12 @@ public class CursoService {
 			throw new RuntimeException("Data Invalida");
 
 		}
+		
+		List<Curso> cursosBuscados = cursoRepository.getAllBetweenDates(curso.getDataInicio(),
+                curso.getDataTermino());
+        if (cursosBuscados.size() > 0) {
+            throw new RuntimeException("Existe(m) curso(s) planejados(s) dentro do período informado.");
+        }
 	}
 	private void validaDataInicio(Curso curso) {
 		if(curso.getDataInicio().isBefore(LocalDate.now())) {
@@ -49,6 +57,7 @@ public class CursoService {
 	
 		}
 	}
+
 	
 	
 

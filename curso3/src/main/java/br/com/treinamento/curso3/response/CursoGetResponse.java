@@ -7,6 +7,7 @@ public class CursoGetResponse {
 	private String descricao;
 	private LocalDate dataInicio;
 	private LocalDate dataTermino;
+	
 
 	public CursoGetResponse() {
 		super();

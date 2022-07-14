@@ -126,7 +126,7 @@ public class CategoriaController {
 			CursoCategoriaGetResponse response = new CursoCategoriaGetResponse();
 			Categoria categoria = item.get();
 			response.setTipo(categoria.getTipo());
-			List<Curso> cursos = cursoRepository.findByIdCategoria(categoria.getIdCategoria());
+			List<Curso> cursos = categoriaRepository.findByIdCategoria(categoria.getIdCategoria());
 			for (Curso curso : cursos) {
 				response.getDescricaoCursos().add(curso.getDescricao());
 				response.getDataInicio().add(curso.getDataInicio());

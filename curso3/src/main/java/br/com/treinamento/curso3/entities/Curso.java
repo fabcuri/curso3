@@ -11,6 +11,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
 @Entity
 @Table(name = "curso")
 public class Curso {
@@ -21,10 +27,16 @@ public class Curso {
 
 	@Column(name = "descricao", length = 50, nullable = false)
 	private String descricao;
-
+	
+	@JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
 	@Column(name = "dataInicio")
 	private LocalDate dataInicio;
 
+	@JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
 	@Column(name = "dataTermino")
 	private LocalDate dataTermino;
 
